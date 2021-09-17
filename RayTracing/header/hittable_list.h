@@ -30,7 +30,7 @@ bool hittable_list::hit(const ray& r, double t_min, double t_max, hit_record& re
     auto closest_so_far = t_max;
 
     for (const auto& object : objects) {
-        //出现一个深度的问题
+        //这边利用closet_so_far解决了深度重合的问题
         if (object->hit(r, t_min, closest_so_far, temp_rec)) {
             hit_anything = true;
             closest_so_far = temp_rec.t;
