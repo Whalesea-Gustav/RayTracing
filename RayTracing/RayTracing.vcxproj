@@ -143,7 +143,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\color.h" />
+    <ClInclude Include="header\hittable.h" />
+    <ClInclude Include="header\hittable_list.h" />
+    <ClInclude Include="header\myUtility.h" />
     <ClInclude Include="header\ray.h" />
+    <ClInclude Include="header\sphere.h" />
     <ClInclude Include="header\vec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

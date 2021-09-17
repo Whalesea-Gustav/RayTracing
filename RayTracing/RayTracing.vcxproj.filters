@@ -29,5 +29,17 @@
     <ClInclude Include="header\ray.h">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="header\hittable.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\hittable_list.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\sphere.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="header\myUtility.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
