@@ -41,5 +41,8 @@
     <ClInclude Include="header\myUtility.h">
       <Filter>header</Filter>
     </ClInclude>
+    <ClInclude Include="header\camera.h">
+      <Filter>header</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

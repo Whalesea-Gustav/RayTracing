@@ -2,6 +2,7 @@
 #include "header/myUtility.h"
 #include "header/hittable_list.h"
 #include "header/sphere.h"
+#include "header/camera.h"
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -23,11 +24,12 @@ color ray_color(const ray& r, const hittable& world)
 int main()
 {
     //Image
-    ofstream out("sphere in the world.ppm", ios::out);
+    ofstream out("sphere with MSAA.ppm", ios::out);
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 400;
     const int image_height = static_cast<int> (image_width / aspect_ratio);
-
+    //For Multiple Sampling Anti-Aliasing
+    int samples_per_pixel = 100;
 
     //World
     hittable_list world;
@@ -35,15 +37,7 @@ int main()
     world.add(make_shared<sphere>(point3(0, -100.5, -1), 100));
 
     //setting Camera
-    auto viewport_height = 2.0;
-    auto viewport_width = aspect_ratio * viewport_height;
-    auto focal_length = 1.0;
-    
-    auto origin = point3(0.0);
-    auto horizontal = vec3(viewport_width, 0, 0);
-    auto vertical = vec3(0, viewport_height, 0);
-    auto lower_left_corner = origin - horizontal / 2.0 - vertical / 2.0 - vec3(0, 0, focal_length);
-
+    camera myCamera;
 
     if (out.is_open())
     {
@@ -53,11 +47,16 @@ int main()
             std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
             for (int i = 0; i < image_width; ++i)
             {
-                auto u = double(i) / (image_width - 1);
-                auto v = double(j) / (image_height - 1);
-                ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-                color pixel_color = ray_color(r, world);
-                write_color(out, pixel_color);
+                color pixel_color(0.0);
+                
+                for (int s = 0; s < samples_per_pixel; s++)
+                {
+                    auto u = (i + random_double()) / (image_width - 1);
+                    auto v = (j + random_double()) / (image_height - 1);
+                    ray r = myCamera.get_ray(u, v);
+                    pixel_color += ray_color(r, world);
+                }
+                write_color(out, pixel_color, samples_per_pixel);
             }
         }
         out.close();
