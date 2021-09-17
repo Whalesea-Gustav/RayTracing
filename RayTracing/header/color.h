@@ -13,6 +13,10 @@ void write_color(std::ofstream& out, color pixel_color, int samples_per_pixel)
 	r *= scale;
 	g *= scale;
 	b *= scale;
+	//gamma correction
+	g = sqrt(g);
+	r = sqrt(r);
+	b = sqrt(b);
 	//write the translated [0, 255] value of each color component.
 	out << static_cast<int>(256 * clamp(r, 0, 0.999)) << ' '
 		<< static_cast<int>(256 * clamp(g, 0, 0.999)) << ' '
