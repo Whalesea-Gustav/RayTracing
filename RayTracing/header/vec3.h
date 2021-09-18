@@ -53,6 +53,10 @@ public:
 	inline static vec3 random(double min, double max) {
 		return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 	}
+	bool near_zero() const {
+		const auto s = 1e-8;
+		return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
+	}
 
 public:
 	double e[3];
@@ -130,7 +134,6 @@ vec3 random_unit_vector()
 	//从弦长来看，符合Lambertian Reflection公式
 	return unit_vector(random_in_unit_sphere());
 }
-
 vec3 random_in_hemisphere(const vec3& normal) {
 	vec3 in_unit_sphere = random_in_unit_sphere();
 	if (dot(in_unit_sphere, normal) > 0.001) // In the same hemisphere direction as the normal
@@ -138,4 +141,5 @@ vec3 random_in_hemisphere(const vec3& normal) {
 	else
 		return -in_unit_sphere;
 }
+
 #endif

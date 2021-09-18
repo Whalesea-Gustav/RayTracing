@@ -1,8 +1,11 @@
 #include "header/color.h"
 #include "header/myUtility.h"
+#include "header/hittable.h"
 #include "header/hittable_list.h"
 #include "header/sphere.h"
 #include "header/camera.h"
+#include "header/material.h"
+
 #include <iostream>
 #include <fstream>
 using namespace std;

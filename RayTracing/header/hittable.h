@@ -1,11 +1,16 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
-#include "ray.h"
+#include "myUtility.h"
+//you just need to alert the compiler that the pointer is to a class,
+//which the “class material” in the hittable class below does:
+//提醒两个头文件，需要使用对方的类，避免相互引用
+class material;
 
 struct hit_record {
     point3 p;
     vec3 normal;
+    shared_ptr<material> mat_ptr;
     double t;
     bool front_face;
 
