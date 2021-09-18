@@ -125,5 +125,17 @@ vec3 random_in_unit_sphere() {
 		return p;
 	}
 }
+vec3 random_unit_vector()
+{
+	//从弦长来看，符合Lambertian Reflection公式
+	return unit_vector(random_in_unit_sphere());
+}
 
+vec3 random_in_hemisphere(const vec3& normal) {
+	vec3 in_unit_sphere = random_in_unit_sphere();
+	if (dot(in_unit_sphere, normal) > 0.001) // In the same hemisphere direction as the normal
+		return in_unit_sphere;
+	else
+		return -in_unit_sphere;
+}
 #endif

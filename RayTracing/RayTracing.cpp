@@ -20,8 +20,9 @@ color ray_color(const ray& r, const hittable& world, int depth)
     //但是因为浮点数之间的比较局限于精度原因，会得到不正确的t值
     //我们需要设置一个tolerance去摆脱这种浮点数精度导致的噪点
     if (world.hit(r, 0.001, infinity, rec))
-    {
-        point3 target = rec.p + rec.normal + random_in_unit_sphere();
+    { 
+        //true lambertian reflection
+        point3 target = rec.p + random_in_hemisphere(rec.normal);
         return 0.5 * ray_color(ray(rec.p, target - rec.p), world, depth-1);
     }
     vec3 unit_direction = unit_vector(r.direction());
@@ -33,7 +34,7 @@ color ray_color(const ray& r, const hittable& world, int depth)
 int main()
 {
     //Image
-    ofstream out("diffuse sphere 50d GammaCorrect.ppm", ios::out);
+    ofstream out("diffuse sphere with hemisphere ditribution.ppm", ios::out);
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 400;
     const int image_height = static_cast<int> (image_width / aspect_ratio);
